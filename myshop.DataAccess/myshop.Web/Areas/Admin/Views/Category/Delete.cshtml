@@ -1,0 +1,23 @@
+﻿@model Category
+
+@{
+    ViewBag.CardTitle = "Delete Category";
+    ViewBag.PageTitle = "Category Management";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+
+<form asp-action="Delete">
+    <div class="mb-3">
+        <label asp-for="Name"  class="form-label">Category Name</label>
+        <input asp-for="Name" disabled type="text" class="form-control">
+        <span asp-validation-for="@Model.Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Category Description</label>
+        <input asp-for="Description" disabled type="text" class="form-control">
+        <span asp-validation-for="@Model.Description" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Back To List</a>
+</form>

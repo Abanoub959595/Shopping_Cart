@@ -1,0 +1,58 @@
+﻿@model ProductViewModel
+
+@{
+    // Layout Specified on the ViewStart
+    // note if you specify the layout like that => Layout = "" => render page as standalone page
+    // Layout = "~/Views/Shared/_Dashboard.cshtml";
+    ViewBag.PageTitle = "Product Management";
+    ViewBag.CardTitle = "Edit Product";
+    var categories = new SelectList(ViewBag.Categories, "Id", "Name");
+
+}
+
+<form asp-action="Edit" enctype="multipart/form-data" >
+                <input asp-for="Id" hidden >
+    <div class="row">
+        <div class="col">
+            <partial name="PartialViews/CreateOrEditProduct.cshtml" />
+            <button type="submit" class="btn btn-success">Save Changes</button>
+            <a asp-controller="Product" asp-action="Index" class="btn btn-secondary">Back To Index</a>
+        </div>
+        <div class="col">
+            <div class="col-md-6">
+                <div class="md-4">
+                    <img src="~/Images/Product/@System.IO.Path.GetFileName(Model.Img)" width="300" height="300" alt="not found" />
+                    <div class="mb-3">
+                        <label asp-for="Url" class="form-label"></label>
+                        <input asp-for="Url" type="file" class="form-control">
+                        <span asp-validation-for="Url" class="text-danger"></span>
+                        <input hidden asp-for="Img">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+@* <div class="col-md-6">
+    <div class="md-4">
+        <img src="~/Images/Product/@System.IO.Path.GetFileName(Model.Img)" width="300" height="300" alt="not found" />
+        <div class="mb-3">
+            <label asp-for="Url" class="form-label"></label>
+            <input asp-for="Url" type="file" class="form-control">
+            <span asp-validation-for="Url" class="text-danger"></span>
+            <input hidden asp-for="Img">
+        <div />
+    </div>
+</div> *@
+
+
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

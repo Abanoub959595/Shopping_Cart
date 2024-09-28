@@ -1,0 +1,75 @@
+﻿@model myshop.Entities.ViewModels.ShoppingCartViewModel
+
+<body class="bg-light">
+    <div class="container mt-5">
+        <form class="row" asp-action="summary">
+            <!-- Billing Address Form -->
+            <div class="col-md-6 bg-light p-4 rounded shadow-sm">
+                <h4 class="mb-4">Billing Address</h4>
+                <div class="form-group">
+                    <label asp-for="OrderHeader.Name">User Name</label>
+                    <input type="text" class="form-control" asp-for="OrderHeader.Name" required>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OrderHeader.ApplicationUser.Email">Email</label>
+                    <input type="email" class="form-control" asp-for="OrderHeader.ApplicationUser.Email" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label asp-for="OrderHeader.City">City</label>
+                        <input type="text" class="form-control" asp-for="OrderHeader.City" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label asp-for="OrderHeader.Phone">Phone Number</label>
+                        <input type="text" class="form-control" asp-for="OrderHeader.Phone" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="OrderHeader.Address">Address</label>
+                    <input type="text" class="form-control" asp-for="OrderHeader.Address" required>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+            <!-- Cart Summary -->
+            <div class="col-md-5 bg-light p-4 rounded shadow-sm">
+                <h3 class="mb-4">Cart Summary</h3>
+                <div class="cart-summary">
+                    @foreach (var item in Model.cartList)
+                    {
+                        <div class="media mb-4 d-flex align-items-center justify-content-between p-3 rounded shadow-sm bg-white" style="transition: transform 0.2s;">
+                            <div class="position-relative" style="width: 64px; height: 64px;">
+                                <img src="~/Images/Product/@System.IO.Path.GetFileName(item.product.Img)" class="mr-3" alt="Product Image" style="width: 64px; height: 64px;">
+                                <div class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="transform: translate(-50%, -50%);">
+                                    @item.Count
+                                </div>
+                            </div>
+                            <div class="media-body text-center">
+                                <h5 class="mt-0">@item.product.Name</h5>
+                            </div>
+                            <div>
+                                <h5 class="mb-0">$@item.product.Price</h5>
+                            </div>
+                        </div>
+                    }
+                    <div class="cart-totals">
+                        <div class="d-flex justify-content-between bg-light p-2 rounded mb-2">
+                            <span>Subtotal</span>
+                            <span>$50</span>
+                        </div>
+                        <div class="d-flex justify-content-between bg-light p-2 rounded mb-2">
+                            <span>Shipping</span>
+                            <span>$5</span>
+                        </div>
+                        <div class="d-flex justify-content-between bg-light p-2 rounded mb-2 total font-weight-bold" style="font-size: 1.25rem;">
+                            <span>Total</span>
+                            <span>$@Model.Total</span>
+                        </div>
+                        <div>
+                            <button type="submit" asp-action="summary" class="btn btn-primary btn-block">Proceed to Summary</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>

@@ -1,0 +1,20 @@
+﻿@model Category
+
+@{
+    ViewBag.CardTitle = "Create Category";
+    ViewBag.PageTitle = "Category Management";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+
+<form asp-action="Create" asp-controller="Category">
+
+    <partial name="PartialViews/CreateOrEditCategory" />
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a asp-controller="Category" asp-action="Index" class="btn btn-warning">Back To Index</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}

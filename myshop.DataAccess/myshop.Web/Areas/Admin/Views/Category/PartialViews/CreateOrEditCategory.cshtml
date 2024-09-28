@@ -1,0 +1,43 @@
+﻿@* @model Category
+
+<div class="mb-3">
+    <label asp-for="Name" class="form-label">Category Name</label>
+    <input asp-for="Name" type="text" class="form-control w-25">
+    <span asp-validation-for="@Model.Name" class="text-danger"></span>
+</div>
+<div class="mb-3">
+    <label asp-for="Description" class="form-label">Category Description</label>
+    <textarea asp-for="Description" type="text" class="form-control w-25"></textarea>
+    <span asp-validation-for="@Model.Description" class="text-danger"></span>
+</div>
+ *@
+
+@model Category
+
+<div class="container mt-4">
+    <h2 class="mb-4">Category Management</h2>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label asp-for="Name" class="form-label">Category Name</label>
+                <input asp-for="Name" type="text" class="form-control" placeholder="Enter category name" required>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label asp-for="Description" class="form-label">Category Description</label>
+                <textarea asp-for="Description" class="form-control" placeholder="Enter category description" rows="4" required></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+        </div>
+
+</div>
+
+<!-- Optional: Add Bootstrap validation styles -->
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

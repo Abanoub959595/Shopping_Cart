@@ -1,0 +1,49 @@
+﻿@model ProductViewModel
+
+@{
+    // Layout Specified on the ViewStart
+    // note if you specify the layout like that => Layout = "" => render page as standalone page
+    // Layout = "~/Views/Shared/_Dashboard.cshtml";
+    ViewBag.PageTitle = "Product Management";
+    ViewBag.CardTitle = "Delete Product";
+    //var categories = new SelectList(ViewBag.Categories, "Name", "Id");
+}
+
+<form asp-action="Delete" >
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label">Product Name</label>
+                <input asp-for="Name" readonly type="text" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label">Product Description</label>
+                <input asp-for="Description" readonly type="text" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label asp-for="Price" class="form-label">Product Price</label>
+                <input asp-for="Price" readonly type="text" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label  class="form-label">Category Name</label>
+                <input readonly asp-for="category.Name" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="md-4">
+                <img src="~/Images/Product/@System.IO.Path.GetFileName(Model.Img)" width="300" height="300" alt="not found" />
+                <div class="mb-3">
+                    <label asp-for="Img" class="form-label"></label>
+                    <input hidden asp-for="Img"/>
+                    <input asp-for="category.Description" hidden/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-danger">Delete Product</button>
+    <a asp-controller="Product" asp-action="Index" class="btn btn-secondary">Back To Index</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

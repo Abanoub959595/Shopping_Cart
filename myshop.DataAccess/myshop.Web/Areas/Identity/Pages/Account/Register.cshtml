@@ -1,0 +1,95 @@
+﻿@page
+@using myshop.Entities.Models;
+@using myshop.Utilities;
+@model RegisterModel
+
+<h1>@ViewData["Title"]</h1>
+
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row">
+            <!-- Form Section (Left) -->
+            <div class="col-md-7">
+                <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    <h2>Create a new account.</h2>
+                    <hr />
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                    <!-- Email -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                        <label asp-for="Input.Email">Email</label>
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+
+                    <!-- Name -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Name" class="form-control" autocomplete="username" aria-required="true" placeholder="Your Name" />
+                        <label asp-for="Input.Name">Name</label>
+                        <span asp-validation-for="Input.Name" class="text-danger"></span>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Address" class="form-control" autocomplete="address" aria-required="true" placeholder="Address" />
+                        <label asp-for="Input.Address">Address</label>
+                        <span asp-validation-for="Input.Address" class="text-danger"></span>
+                    </div>
+
+                    <!-- City -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.City" class="form-control" autocomplete="address" aria-required="true" placeholder="City" />
+                        <label asp-for="Input.City">City</label>
+                        <span asp-validation-for="Input.City" class="text-danger"></span>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Password" type="password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Password" />
+                        <label asp-for="Input.Password">Password</label>
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.ConfirmPassword" type="password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Confirm Password" />
+                        <label asp-for="Input.ConfirmPassword">Confirm Password</label>
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <!-- User Roles (Admin) -->
+                    @if (User.IsInRole(SD.AdminRole))
+                    {
+                        <div class="mb-3">
+                            <input type="radio" name="radioRole" id="valueOne" value="@SD.AdminRole" /> <label for="valueOne">@SD.AdminRole</label>
+                            <input type="radio" name="radioRole" id="valueTwo" value="@SD.EditorRole" /> <label for="valueTwo">@SD.EditorRole</label>
+                            <input type="radio" name="radioRole" id="valueThree" value="@SD.CustomerRole" /> <label for="valueThree">@SD.CustomerRole</label>
+                        </div>
+                    }
+
+                    <!-- Submit Button -->
+                    @if (User.IsInRole(SD.AdminRole))
+                    {
+                        <button id="registerSubmit" type="submit" class="btn btn-primary btn-lg rounded-pill w-100">Create New User</button>
+                    }
+                    else
+                    {
+                        <button id="registerSubmit" type="submit" class="btn btn-primary btn-lg rounded-pill w-100">Register</button>
+                    }
+                </form>
+            </div>
+
+            <!-- Photo Section (Right) -->
+            <div class="col-md-5 d-flex align-items-center justify-content-center">
+                <div class="photo-frame">
+                    <img src="~/img/register.jpg" class="img-fluid rounded" alt="Your Image">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,64 @@
+﻿@model ProductViewModel
+
+@{
+    // Layout Specified on the ViewStart 
+    // note if you specify the layout like that => Layout = "" => render page as standalone page 
+	// Layout = "~/Views/Shared/_Dashboard.cshtml";
+	ViewBag.PageTitle = "Product Management";
+	ViewBag.CardTitle = "Create Product";
+	var categories = new SelectList(ViewBag.Categories, "Id", "Name");
+}
+
+@* <form asp-action="Create" enctype="multipart/form-data">
+    <partial name="PartialViews/CreateOrEditProduct.cshtml" />
+    <div class="mb-3">
+        <label asp-for="Img" class="form-label"></label>
+        <input id="imgfile" asp-for="Url" type="file" class="form-control" onchange="fillimg(event)">
+        <span asp-validation-for="Img" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a asp-controller="Product" asp-action="Index" class="btn btn-warning">Back To Index</a>
+</form> *@
+
+<form asp-action="Create" enctype="multipart/form-data">
+    @* <input asp-for="Id" hidden> *@
+    <div class="row">
+        <div class="col">
+            <partial name="PartialViews/CreateOrEditProduct.cshtml" />
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a asp-controller="Product" asp-action="Index" class="btn btn-warning">Back To Index</a>
+        </div>
+        <div class="col">
+            <div class="col-md-6">
+                <div class="md-4">
+                    <img  id="imgPreview" width="300" height="300" />
+                    <div class="mb-3">
+                        <label asp-for="Url" class="form-label"></label>
+                        <input id="imgfile" asp-for="Url" type="file" class="form-control" onchange="fillimg(event)">
+                        <span asp-validation-for="Url" class="text-danger"></span>
+                        <input hidden asp-for="Img">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        var fillimg = function (event) {
+            var imgholder = document.getElementById("imgPreview");
+            imgholder.src = URL.createObjectURL(event.target.files[0]);
+        }
+    </script>
+
+
+}

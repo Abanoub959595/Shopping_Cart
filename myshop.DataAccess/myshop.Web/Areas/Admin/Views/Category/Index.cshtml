@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Category>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+
+@{
+    ViewBag.CardTitle = "All Category";
+    ViewBag.PageTitle = "Category Management";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<a asp-action="Create" class="btn btn-primary mb-3">Create New Category</a>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">@Html.DisplayNameFor(model => model.First().Name)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.First().Description)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.First().CreatedTime)</th>
+                <th scope="col" class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model)
+            {
+                <tr>
+                    <th scope="row">@category.Name</th>
+                    <td>@category.Description</td>
+                    <td>@category.CreatedTime.ToString("g")</td>
+                    <td class="text-center">
+                        <a asp-action="Edit" class="btn btn-warning btn-sm" asp-route-id="@category.Id">Edit</a>
+                        <a asp-action="Delete" class="btn btn-danger btn-sm" asp-route-id="@category.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="d-flex justify-content-center mt-4">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }),
+    new PagedListRenderOptions
+    {
+    LiElementClasses = new string[] { "page-item" },
+    PageClasses = new string[] { "page-link" },
+    DisplayEllipsesWhenNotShowingAllPageNumbers = true
+    })
+</div>

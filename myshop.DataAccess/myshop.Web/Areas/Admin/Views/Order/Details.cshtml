@@ -1,0 +1,620 @@
+﻿@* @model OrderViewModel
+@using myshop.Utilities
+@{
+	ViewBag.CardTitle = "Order Management";
+	ViewBag.PageTitle = "View Order Details";
+	Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+
+<form method="post">
+	<div class="container">
+		<div class="d-flex justify-content-between">
+			<div class="container rounded p-2">
+				<div class="row">
+					<h4 class="d-flex justify-content-between align-items-center mb-3">
+						<span>PickUp Details</span>
+					</h4>
+				</div>
+				<input hidden asp-for="@Model.orderHeader.Id"/>
+				<div class="row my-1">
+					<div class="col-3">Name</div>
+					<div class="col-9">
+						<input asp-for="orderHeader.Name" type="text" class="form-control"/>
+						<span asp-validation-for="orderHeader.Name" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row my-1">
+					<div class="col-3">Phone</div>
+					<div class="col-9">
+						<input asp-for="orderHeader.Phone" type="text" class="form-control" />
+						<span asp-validation-for="orderHeader.Phone" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="row my-1">
+					<div class="col-3">Address</div>
+					<div class="col-9">
+						<input asp-for="orderHeader.Address" type="text" class="form-control" />
+						<span asp-validation-for="orderHeader.Address" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row my-1">
+					<div class="col-3">City</div>
+					<div class="col-9">
+						<input asp-for="orderHeader.City" type="text" class="form-control" />
+						<span asp-validation-for="orderHeader.City" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row my-1">
+					<div class="col-3">Email</div>
+					<div class="col-9">
+						<input readonly asp-for="orderHeader.ApplicationUser.Email" type="text" class="form-control" />
+						<span asp-validation-for="orderHeader.ApplicationUser.Email" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row my-1">
+					<div class="col-3">Order Date</div>
+					<div class="col-9">
+						<input value="@Model.orderHeader.OrderDate.ToShortDateString()" readonly type="text" class="form-control" />
+						<span asp-validation-for="orderHeader.OrderDate" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row my-1">
+					<div class="col-3">Carrier</div>
+					<div class="col-9">
+						<input id="carrier" asp-for="orderHeader.Carrier" type="text" class="form-control" />
+						<span asp-validation-for="orderHeader.Carrier" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row my-1">
+					<div class="col-3">Tracking Number</div>
+					<div class="col-9">
+						<input id="tracking" asp-for="orderHeader.TrackingNumber" type="text" class="form-control" />
+						<span asp-validation-for="orderHeader.TrackingNumber" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row my-1">
+					<div class="col-3">Shipping Date</div>
+					<div class="col-9">
+						<input value="@Model.orderHeader.ShippingDate.ToShortDateString()" readonly type="text" class="form-control" />
+						<span asp-validation-for="orderHeader.ShippingDate" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row my-1">
+					<div class="col-3">Session Id</div>
+					<div class="col-9">
+						<input asp-for="orderHeader.SessionId" readonly type="text" class="form-control" />
+						<span asp-validation-for="orderHeader.SessionId" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row my-1">
+					<div class="col-3">Payment Intent Id</div>
+					<div class="col-9">
+						<input asp-for="orderHeader.PaymentIntentId" readonly type="text" class="form-control" />
+						<span asp-validation-for="orderHeader.PaymentIntentId" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row my-1">
+					<div class="col-3">Payment Date</div>
+					<div class="col-9">
+						<input value="@Model.orderHeader.PaymentDate.ToShortDateString()" readonly type="text" class="form-control" />
+						<span asp-validation-for="orderHeader.PaymentDate" class="text-danger"></span>
+					</div>
+				</div>
+				<div class="row my-1">
+					<div class="col-3">Payment Status</div>
+					<div class="col-9">
+						<input asp-for="orderHeader.PaymentStatus" type="text" class="form-control" />
+						<span asp-validation-for="orderHeader.PaymentStatus" class="text-danger"></span>
+					</div>
+				</div>
+
+				<input asp-action="UpdateOrderHeaderDetails" type="submit" class="btn btn-primary form-control my-1" value="Update PickUP Details" />
+
+			</div>
+
+			<div class="col-12 col-lg-5 offset-lg-1">
+				<h4 class="d-flex justify-content-between align-items-center mb-3">
+					<span>Order Summary</span>
+				</h4>
+
+				<label class="btn btn-outline-primary form-control mr-2">Order Status - @Model.orderHeader.OrderStatus</label>
+
+				<ul class="list-group mb-3">
+
+					@foreach(var item in Model.orderDetails)
+					{
+						<li class="list-group-item d-flex justify-content-between p-2">
+							<div class="row container">
+								<div class="col-8">
+									<h6 class="my-0 text-primary ">@item.Product.Name</h6>
+									<small class="text-muted">Price : @item.Product.Price</small> <br />
+									<small class="text-muted">Quantity : @item.Count</small>
+
+								</div>
+								<div class="col-4 text-end">
+									<p class="text-success">@((item.Product.Price * @item.Count).ToString("c"))</p>
+								</div>
+							</div>
+						</li>
+
+					}
+
+					<li class="list-group-item bg-dark">
+
+						<div class="container row">
+							<div class="col-6">
+								<h5 class="text-white">Total</h5>
+							</div>
+							<div class="col-6">
+								<h5 class="text-white">@((Model.orderHeader.TotalPrice).ToString("c"))</h5>
+							</div>
+						</div>
+
+
+					</li>
+
+
+				</ul>
+
+
+				@if (Model.orderHeader.OrderStatus == SD.Approve)
+				{
+					<input asp-route-orderid="@Model.orderHeader.Id" asp-action="StartProcess" type="submit" class="btn btn-primary" value="Start Process" />
+					
+				}
+				@if (Model.orderHeader.OrderStatus == SD.Proccessing)
+				{
+					<input asp-route-orderid="@Model.orderHeader.Id" onclick="return checkData()" asp-action="StartShipp" type="submit" class="btn btn-success" value="Start Shipping" />
+				}
+				@if (Model.orderHeader.OrderStatus != SD.Cancelled || Model.orderHeader.OrderStatus != SD.Refund)
+				{
+					<input asp-action="CancelOrder" type="submit" class="btn btn-danger" value="Cancel Order" asp-route-orderid="@Model.orderHeader.Id" />
+					
+				}
+
+
+			</div>
+
+		</div>
+	</div>
+</form>
+
+
+
+
+@section Scripts {
+	<script>
+		function checkData() {
+			if (document.getElementById("carrier").value == '') {
+				swal.fire({
+					title: "There is an error",
+					text: "Please Enter carrier",
+					icon: 'error',
+					confirmButtonColor: "red",
+					cancelButtonColor: "red", 
+				});
+				return false;
+			}
+			if (document.getElementById("tracking").value == '') {
+				swal.fire({
+					title: "There is an error",
+					text: "Please Enter Tracking Number", 
+					icon: 'error',
+					confirmButtonColor: "red",
+					cancelButtonColor: "red", 
+				});
+				return false;
+			}
+			return true;
+		}
+	</script>
+}
+ *@
+
+@* 					@model OrderViewModel
+@using myshop.Utilities
+
+@{
+    ViewBag.CardTitle = "Order Management";
+    ViewBag.PageTitle = "View Order Details";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<form method="post">
+    <div class="container mt-4">
+        <h2 class="text-center mb-4">@ViewBag.CardTitle</h2>
+
+        <div class="row">
+            <div class="col-lg-7 col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>PickUp Details</h5>
+                    </div>
+                    <div class="card-body">
+                        <input hidden asp-for="@Model.orderHeader.Id"/>
+                        
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Name</label>
+                            <div class="col-sm-9">
+                                <input asp-for="orderHeader.Name" type="text" class="form-control" />
+                                <span asp-validation-for="orderHeader.Name" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Phone</label>
+                            <div class="col-sm-9">
+                                <input asp-for="orderHeader.Phone" type="text" class="form-control" />
+                                <span asp-validation-for="orderHeader.Phone" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Address</label>
+                            <div class="col-sm-9">
+                                <input asp-for="orderHeader.Address" type="text" class="form-control" />
+                                <span asp-validation-for="orderHeader.Address" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">City</label>
+                            <div class="col-sm-9">
+                                <input asp-for="orderHeader.City" type="text" class="form-control" />
+                                <span asp-validation-for="orderHeader.City" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-9">
+                                <input readonly asp-for="orderHeader.ApplicationUser.Email" type="text" class="form-control" />
+                                <span asp-validation-for="orderHeader.ApplicationUser.Email" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Order Date</label>
+                            <div class="col-sm-9">
+                                <input value="@Model.orderHeader.OrderDate.ToShortDateString()" readonly type="text" class="form-control" />
+                                <span asp-validation-for="orderHeader.OrderDate" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Carrier</label>
+                            <div class="col-sm-9">
+                                <input id="carrier" asp-for="orderHeader.Carrier" type="text" class="form-control" />
+                                <span asp-validation-for="orderHeader.Carrier" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Tracking Number</label>
+                            <div class="col-sm-9">
+                                <input id="tracking" asp-for="orderHeader.TrackingNumber" type="text" class="form-control" />
+                                <span asp-validation-for="orderHeader.TrackingNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Shipping Date</label>
+                            <div class="col-sm-9">
+                                <input value="@Model.orderHeader.ShippingDate.ToShortDateString()" readonly type="text" class="form-control" />
+                                <span asp-validation-for="orderHeader.ShippingDate" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Session Id</label>
+                            <div class="col-sm-9">
+                                <input asp-for="orderHeader.SessionId" readonly type="text" class="form-control" />
+                                <span asp-validation-for="orderHeader.SessionId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Payment Intent Id</label>
+                            <div class="col-sm-9">
+                                <input asp-for="orderHeader.PaymentIntentId" readonly type="text" class="form-control" />
+                                <span asp-validation-for="orderHeader.PaymentIntentId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Payment Date</label>
+                            <div class="col-sm-9">
+                                <input value="@Model.orderHeader.PaymentDate.ToShortDateString()" readonly type="text" class="form-control" />
+                                <span asp-validation-for="orderHeader.PaymentDate" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label">Payment Status</label>
+                            <div class="col-sm-9">
+                                <input asp-for="orderHeader.PaymentStatus" type="text" class="form-control" />
+                                <span asp-validation-for="orderHeader.PaymentStatus" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <input asp-action="UpdateOrderHeaderDetails" type="submit" class="btn btn-primary form-control my-1" value="Update PickUP Details" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-md-12 offset-lg-1">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5>Order Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <label class="btn btn-outline-primary form-control mb-3">Order Status - @Model.orderHeader.OrderStatus</label>
+
+                        <ul class="list-group mb-3">
+                            @foreach (var item in Model.orderDetails)
+                            {
+                                <li class="list-group-item d-flex justify-content-between p-2">
+                                    <div class="row container">
+                                        <div class="col-8">
+                                            <h6 class="my-0 text-primary">@item.Product.Name</h6>
+                                            <small class="text-muted">Price : @item.Product.Price</small><br />
+                                            <small class="text-muted">Quantity : @item.Count</small>
+                                        </div>
+                                        <div class="col-4 text-end">
+                                            <p class="text-success">@((item.Product.Price * @item.Count).ToString("c"))</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+
+                            <li class="list-group-item bg-dark text-white">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5>Total</h5>
+                                    </div>
+                                    <div class="col-6 text-end">
+                                        <h5>@((Model.orderHeader.TotalPrice).ToString("c"))</h5>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+
+                        @if (Model.orderHeader.OrderStatus == SD.Approve)
+                        {
+                            <input asp-route-orderid="@Model.orderHeader.Id" asp-action="StartProcess" type="submit" class="btn btn-primary mb-1" value="Start Process" />
+                        }
+                        @if (Model.orderHeader.OrderStatus == SD.Proccessing)
+                        {
+                            <input asp-route-orderid="@Model.orderHeader.Id" onclick="return checkData()" asp-action="StartShipp" type="submit" class="btn btn-success mb-1" value="Start Shipping" />
+                        }
+                        @if (Model.orderHeader.OrderStatus != SD.Cancelled && Model.orderHeader.OrderStatus != SD.Refund)
+                        {
+                            <input asp-action="CancelOrder" type="submit" class="btn btn-danger mb-1" value="Cancel Order" asp-route-orderid="@Model.orderHeader.Id" />
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+ *@
+
+@model OrderViewModel
+@using myshop.Utilities
+@{
+    ViewBag.CardTitle = "Order Management";
+    ViewBag.PageTitle = "View Order Details";
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+<form method="post">
+    <div class="container my-4">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-6 col-md-12">
+                <div class="card rounded p-3">
+                    <h4 class="mb-3">Pickup Details</h4>
+                    <input type="hidden" asp-for="@Model.orderHeader.Id" />
+
+                    @* Using Bootstrap grid for form inputs *@
+                    <div class="mb-3 row">
+                        <label for="Name" class="col-sm-3 col-form-label">Name</label>
+                        <div class="col-sm-9">
+                            <input asp-for="orderHeader.Name" type="text" class="form-control" />
+                            <span asp-validation-for="orderHeader.Name" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="Phone" class="col-sm-3 col-form-label">Phone</label>
+                        <div class="col-sm-9">
+                            <input asp-for="orderHeader.Phone" type="text" class="form-control" />
+                            <span asp-validation-for="orderHeader.Phone" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="Address" class="col-sm-3 col-form-label">Address</label>
+                        <div class="col-sm-9">
+                            <input asp-for="orderHeader.Address" type="text" class="form-control" />
+                            <span asp-validation-for="orderHeader.Address" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="City" class="col-sm-3 col-form-label">City</label>
+                        <div class="col-sm-9">
+                            <input asp-for="orderHeader.City" type="text" class="form-control" />
+                            <span asp-validation-for="orderHeader.City" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="Email" class="col-sm-3 col-form-label">Email</label>
+                        <div class="col-sm-9">
+                            <input readonly asp-for="orderHeader.ApplicationUser.Email" type="text" class="form-control" />
+                            <span asp-validation-for="orderHeader.ApplicationUser.Email" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="OrderDate" class="col-sm-3 col-form-label">Order Date</label>
+                        <div class="col-sm-9">
+                            <input value="@Model.orderHeader.OrderDate.ToShortDateString()" readonly type="text" class="form-control" />
+                            <span asp-validation-for="orderHeader.OrderDate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="Carrier" class="col-sm-3 col-form-label">Carrier</label>
+                        <div class="col-sm-9">
+                            <input id="carrier" asp-for="orderHeader.Carrier" type="text" class="form-control" />
+                            <span asp-validation-for="orderHeader.Carrier" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="TrackingNumber" class="col-sm-3 col-form-label">Tracking Number</label>
+                        <div class="col-sm-9">
+                            <input id="tracking" asp-for="orderHeader.TrackingNumber" type="text" class="form-control" />
+                            <span asp-validation-for="orderHeader.TrackingNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="ShippingDate" class="col-sm-3 col-form-label">Shipping Date</label>
+                        <div class="col-sm-9">
+                            <input value="@Model.orderHeader.ShippingDate.ToShortDateString()" readonly type="text" class="form-control" />
+                            <span asp-validation-for="orderHeader.ShippingDate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="SessionId" class="col-sm-3 col-form-label">Session Id</label>
+                        <div class="col-sm-9">
+                            <input asp-for="orderHeader.SessionId" readonly type="text" class="form-control" />
+                            <span asp-validation-for="orderHeader.SessionId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="PaymentIntentId" class="col-sm-3 col-form-label">Payment Intent Id</label>
+                        <div class="col-sm-9">
+                            <input asp-for="orderHeader.PaymentIntentId" readonly type="text" class="form-control" />
+                            <span asp-validation-for="orderHeader.PaymentIntentId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="PaymentDate" class="col-sm-3 col-form-label">Payment Date</label>
+                        <div class="col-sm-9">
+                            <input value="@Model.orderHeader.PaymentDate.ToShortDateString()" readonly type="text" class="form-control" />
+                            <span asp-validation-for="orderHeader.PaymentDate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3 row">
+                        <label for="PaymentStatus" class="col-sm-3 col-form-label">Payment Status</label>
+                        <div class="col-sm-9">
+                            <input asp-for="orderHeader.PaymentStatus" type="text" class="form-control" />
+                            <span asp-validation-for="orderHeader.PaymentStatus" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <input asp-action="UpdateOrderHeaderDetails" type="submit" class="btn btn-primary form-control my-1" value="Update Pickup Details" />
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12 mt-4 mt-lg-0">
+                <div class="card rounded p-3">
+                    <h4 class="mb-3">Order Summary</h4>
+                    <label class="btn btn-outline-primary form-control">Order Status - @Model.orderHeader.OrderStatus</label>
+
+                    <ul class="list-group mb-3">
+                        @foreach (var item in Model.orderDetails)
+                        {
+                            <li class="list-group-item d-flex justify-content-between p-2">
+                                <div class="row container">
+                                    <div class="col-8">
+                                        <h6 class="my-0 text-primary">@item.Product.Name</h6>
+                                        <small class="text-muted">Price: @item.Product.Price</small><br />
+                                        <small class="text-muted">Quantity: @item.Count</small>
+                                    </div>
+                                    <div class="col-4 text-end">
+                                        <p class="text-success">@((item.Product.Price * @item.Count).ToString("c"))</p>
+                                    </div>
+                                </div>
+                            </li>
+                        }
+
+                        <li class="list-group-item bg-dark">
+                            <div class="container row">
+                                <div class="col-6">
+                                    <h5 class="text-white">Total</h5>
+                                </div>
+                                <div class="col-6">
+                                    <h5 class="text-white">@((Model.orderHeader.TotalPrice).ToString("c"))</h5>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    @if (Model.orderHeader.OrderStatus == SD.Approve)
+                    {
+                        <input asp-route-orderid="@Model.orderHeader.Id" asp-action="StartProcess" type="submit" class="btn btn-primary" value="Start Process" />
+                    }
+                    @if (Model.orderHeader.OrderStatus == SD.Proccessing)
+                    {
+                        <input asp-route-orderid="@Model.orderHeader.Id" onclick="return checkData()" asp-action="StartShipp" type="submit" class="btn btn-success" value="Start Shipping" />
+                    }
+                    @if (Model.orderHeader.OrderStatus != SD.Cancelled || Model.orderHeader.OrderStatus != SD.Refund)
+                    {
+                        <input asp-action="CancelOrder" type="submit" class="btn btn-danger" value="Cancel Order" asp-route-orderid="@Model.orderHeader.Id" />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+@section Scripts {
+	<script>
+		function checkData() {
+			if (document.getElementById("carrier").value == '') {
+				swal.fire({
+					title: "There is an error",
+					text: "Please Enter carrier",
+					icon: 'error',
+					confirmButtonColor: "red",
+					cancelButtonColor: "red",
+				});
+				return false;
+			}
+			if (document.getElementById("tracking").value == '') {
+				swal.fire({
+					title: "There is an error",
+					text: "Please Enter Tracking Number",
+					icon: 'error',
+					confirmButtonColor: "red",
+					cancelButtonColor: "red",
+				});
+				return false;
+			}
+			return true;
+		}
+	</script>
+}
+
+

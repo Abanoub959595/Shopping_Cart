@@ -1,0 +1,64 @@
+﻿
+
+@model IEnumerable<OrderHeader>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+
+@{
+    ViewBag.PageTitle = "Orders Management";
+    ViewBag.CardTitle = "View Orders";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">@ViewBag.CardTitle</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Id)</th>
+                    <th scope="col">@Html.DisplayNameFor(model => model.Name)</th>
+                    <th scope="col">@Html.DisplayNameFor(Model => Model.Phone)</th>
+                    <th scope="col">@Html.DisplayNameFor(Model => Model.ApplicationUser.Email)</th>
+                    <th scope="col">@Html.DisplayNameFor(Model => Model.OrderStatus)</th>
+                    <th scope="col">@Html.DisplayNameFor(Model => Model.TotalPrice)</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="7" class="text-center">No orders available.</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var order in Model)
+                    {
+                        <tr>
+                            <th scope="row">@order.Id</th>
+                            <td>@order.Name</td>
+                            <td>@order.Phone</td>
+                            <td>@order.ApplicationUser.Email</td>
+                            <td>@order.OrderStatus</td>
+                            <td>@order.TotalPrice.ToString("C")</td>
+                            <td>
+                                <a asp-action="Details" class="btn btn-warning btn-sm" asp-route-orderid="@order.Id">View Details</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-center mt-4">
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }),
+        new PagedListRenderOptions
+        {
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" }
+        })
+    </div>
+</div>

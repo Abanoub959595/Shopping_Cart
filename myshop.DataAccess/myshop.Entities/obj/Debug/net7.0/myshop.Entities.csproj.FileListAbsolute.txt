@@ -1,0 +1,24 @@
+E:\05 MVC\ShoppingCartProject\myshop\myshop.DataAccess\myshop.Entities\bin\Debug\net7.0\myshop.Entities.deps.json
+E:\05 MVC\ShoppingCartProject\myshop\myshop.DataAccess\myshop.Entities\bin\Debug\net7.0\myshop.Entities.dll
+E:\05 MVC\ShoppingCartProject\myshop\myshop.DataAccess\myshop.Entities\bin\Debug\net7.0\myshop.Entities.pdb
+E:\05 MVC\ShoppingCartProject\myshop\myshop.DataAccess\myshop.Entities\obj\Debug\net7.0\myshop.Entities.csproj.AssemblyReference.cache
+E:\05 MVC\ShoppingCartProject\myshop\myshop.DataAccess\myshop.Entities\obj\Debug\net7.0\myshop.Entities.GeneratedMSBuildEditorConfig.editorconfig
+E:\05 MVC\ShoppingCartProject\myshop\myshop.DataAccess\myshop.Entities\obj\Debug\net7.0\myshop.Entities.AssemblyInfoInputs.cache
+E:\05 MVC\ShoppingCartProject\myshop\myshop.DataAccess\myshop.Entities\obj\Debug\net7.0\myshop.Entities.AssemblyInfo.cs
+E:\05 MVC\ShoppingCartProject\myshop\myshop.DataAccess\myshop.Entities\obj\Debug\net7.0\myshop.Entities.csproj.CoreCompileInputs.cache
+E:\05 MVC\ShoppingCartProject\myshop\myshop.DataAccess\myshop.Entities\obj\Debug\net7.0\myshop.Entities.dll
+E:\05 MVC\ShoppingCartProject\myshop\myshop.DataAccess\myshop.Entities\obj\Debug\net7.0\refint\myshop.Entities.dll
+E:\05 MVC\ShoppingCartProject\myshop\myshop.DataAccess\myshop.Entities\obj\Debug\net7.0\myshop.Entities.pdb
+E:\05 MVC\ShoppingCartProject\myshop\myshop.DataAccess\myshop.Entities\obj\Debug\net7.0\ref\myshop.Entities.dll
+E:\ShoppingCart\myshop.DataAccess\myshop.Entities\bin\Debug\net7.0\myshop.Entities.deps.json
+E:\ShoppingCart\myshop.DataAccess\myshop.Entities\bin\Debug\net7.0\myshop.Entities.dll
+E:\ShoppingCart\myshop.DataAccess\myshop.Entities\bin\Debug\net7.0\myshop.Entities.pdb
+E:\ShoppingCart\myshop.DataAccess\myshop.Entities\obj\Debug\net7.0\myshop.Entities.csproj.AssemblyReference.cache
+E:\ShoppingCart\myshop.DataAccess\myshop.Entities\obj\Debug\net7.0\myshop.Entities.GeneratedMSBuildEditorConfig.editorconfig
+E:\ShoppingCart\myshop.DataAccess\myshop.Entities\obj\Debug\net7.0\myshop.Entities.AssemblyInfoInputs.cache
+E:\ShoppingCart\myshop.DataAccess\myshop.Entities\obj\Debug\net7.0\myshop.Entities.AssemblyInfo.cs
+E:\ShoppingCart\myshop.DataAccess\myshop.Entities\obj\Debug\net7.0\myshop.Entities.csproj.CoreCompileInputs.cache
+E:\ShoppingCart\myshop.DataAccess\myshop.Entities\obj\Debug\net7.0\myshop.Entities.dll
+E:\ShoppingCart\myshop.DataAccess\myshop.Entities\obj\Debug\net7.0\refint\myshop.Entities.dll
+E:\ShoppingCart\myshop.DataAccess\myshop.Entities\obj\Debug\net7.0\myshop.Entities.pdb
+E:\ShoppingCart\myshop.DataAccess\myshop.Entities\obj\Debug\net7.0\ref\myshop.Entities.dll

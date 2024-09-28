@@ -1,0 +1,47 @@
+﻿
+
+
+@{
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
+    {
+        Layout = parentLayout.ToString();
+    }
+    else
+    {
+        Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+    }
+}
+
+<h1 class="text-center my-4">Manage Your Account</h1>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <!-- Navigation Panel -->
+        <div class="col-12 col-lg-3 mb-4">
+            <div class="card shadow-sm mx-auto" style="border-radius: 10px; background-color: #f5f5f5;">
+                <div class="card-header" style="background-color: #e0e0e0; border-radius: 10px 10px 0 0;">
+                    <h4 class="h6 text-center" style="color: #333;">Navigation</h4>
+                </div>
+                <div class="card-body">
+                    <partial name="_ManageNav" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Panel -->
+        <div class="col-12 col-lg-9">
+            <div class="card shadow-sm mx-auto" style="border-radius: 10px; background-color: #f9f9f9;">
+                <div class="card-header" style="background-color: #e0e0e0; border-radius: 10px 10px 0 0;">
+                    <h4 class="h5" style="color: #333;">Account Settings</h4>
+                </div>
+                <div class="card-body">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

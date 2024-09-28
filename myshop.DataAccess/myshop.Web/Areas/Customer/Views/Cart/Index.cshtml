@@ -1,0 +1,209 @@
+﻿@* @model myshop.Entities.ViewModels.ShoppingCartViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light background for a clean look */
+        }
+
+        .shopping-cart {
+            padding: 50px 0;
+        }
+
+        .header {
+            background-color: #343a40; /* Dark header for contrast */
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .card {
+            border: none; /* Remove default border */
+            border-radius: 10px; /* Rounded corners for cards */
+        }
+
+        .card-title a {
+            color: #007bff; /* Main color for links */
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* Main color for buttons */
+            border-color: #007bff;
+        }
+
+        .btn-danger {
+            background-color: #dc3545; /* Red color for remove button */
+            border-color: #dc3545;
+        }
+
+        .summary {
+            background-color: #e9ecef; /* Light background for summary */
+            border-radius: 10px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <section class="shopping-cart">
+            <div class="container">
+                <!-- Shopping Cart Header -->
+                <div class="header d-flex justify-content-between align-items-center mb-4">
+                    <h4 class="mb-0">Shopping Cart</h4>
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-light">Continue Shopping</a>
+                </div>
+
+                <!-- Shopping Cart Items and Summary -->
+                <div class="row">
+                    <!-- Shopping Cart Items -->
+                    <div class="col-lg-8">
+                        <div class="items">
+                            @foreach (var cart in Model.cartList)
+                            {
+                                <div class="card mb-3 shadow-sm">
+                                    <div class="row no-gutters">
+                                        <!-- Product Image -->
+                                        <div class="col-md-3">
+                                            <img class="img-fluid rounded-left" src="~/Images/Product/@System.IO.Path.GetFileName(cart.product.Img)" alt="@cart.product.Name">
+                                        </div>
+                                        <!-- Product Details -->
+                                        <div class="col-md-9">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <!-- Product Name and Description -->
+                                                    <div class="col-md-6">
+                                                        <h5 class="card-title">
+                                                            <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-productId="@cart.product.Id">@cart.product.Name</a>
+                                                        </h5>
+                                                        <p class="card-text text-muted">Description: @cart.product.Description</p>
+                                                    </div>
+                                                    <!-- Quantity Controls -->
+                                                    <div class="col-md-3">
+                                                        <label for="quantity">Quantity:</label>
+                                                        <div class="btn-group" role="group" aria-label="Quantity controls">
+                                                            <a class="btn btn-outline-primary btn-sm" asp-action="Plus" asp-route-cartId="@cart.Id">+</a>
+                                                            <span class="mx-2">@cart.Count</span>
+                                                            <a class="btn btn-outline-primary btn-sm" asp-action="Minus" asp-route-cartId="@cart.Id">-</a>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Price and Remove Button -->
+                                                    <div class="col-md-3 d-flex flex-column align-items-end">
+                                                        <span class="h5">$@cart.product.Price</span>
+                                                        <a asp-action="Remove" asp-route-cartId="@cart.Id" class="btn btn-danger btn-sm mt-2">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Cart Summary -->
+                    <div class="col-lg-4">
+                        <div class="summary p-3">
+                            <h4 class="card-title">Summary</h4>
+                            <div class="d-flex justify-content-between mt-3">
+                                <span>Total</span>
+                                <span class="h5">$@Model.Total</span>
+                            </div>
+                            <div class="mt-4">
+                                <a asp-action="Summary" class="btn btn-primary btn-lg btn-block">Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
+ *@
+
+
+                                @model myshop.Entities.ViewModels.ShoppingCartViewModel
+
+<main class="page">
+    <section class="py-5 bg-light">
+        <div class="container">
+            <!-- Shopping Cart Header -->
+            <div class="header d-flex justify-content-between align-items-center mb-4 bg-dark text-white p-3 rounded">
+                <h4 class="mb-0">Shopping Cart</h4>
+                <a asp-action="Index" asp-controller="Home" class="btn btn-light">Continue Shopping</a>
+            </div>
+
+            <!-- Shopping Cart Items and Summary -->
+            <div class="row">
+                <!-- Shopping Cart Items -->
+                <div class="col-lg-8">
+                    <div class="items">
+                        @foreach (var cart in Model.cartList)
+                        {
+                            <div class="card mb-3 shadow-sm">
+                                <div class="row no-gutters">
+                                    <!-- Product Image -->
+                                    <div class="col-md-3">
+                                        <img class="img-fluid rounded-left" src="~/Images/Product/@System.IO.Path.GetFileName(cart.product.Img)" alt="@cart.product.Name">
+                                    </div>
+                                    <!-- Product Details -->
+                                    <div class="col-md-9">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <!-- Product Name and Description -->
+                                                <div class="col-md-6">
+                                                    <h5 class="card-title">
+                                                        <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-productId="@cart.product.Id">@cart.product.Name</a>
+                                                    </h5>
+                                                    <p class="card-text text-muted">Description: @cart.product.Description</p>
+                                                </div>
+                                                <!-- Quantity Controls -->
+                                                <div class="col-md-3 text-center">
+                                                    <label for="quantity">Quantity:</label>
+                                                    <div class="btn-group" role="group" aria-label="Quantity controls">
+                                                        <a class="btn btn-outline-primary btn-sm" asp-action="Plus" asp-route-cartId="@cart.Id">+</a>
+                                                        <span class="mx-2">@cart.Count</span>
+                                                        <a class="btn btn-outline-primary btn-sm" asp-action="Minus" asp-route-cartId="@cart.Id">-</a>
+                                                    </div>
+                                                </div>
+                                                <!-- Price and Remove Button -->
+                                                <div class="col-md-3 d-flex flex-column align-items-end">
+                                                    <span class="h5">$@cart.product.Price</span>
+                                                    <a asp-action="Remove" asp-route-cartId="@cart.Id" class="btn btn-danger btn-sm mt-2">Remove</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- Cart Summary -->
+                <div class="col-lg-4">
+                    <div class="card p-3 bg-light border">
+                        <h4 class="card-title">Summary</h4>
+                        <div class="d-flex justify-content-between mt-3">
+                            <span>Total</span>
+                            <span class="h5">$@Model.Total</span>
+                        </div>
+                        <div class="mt-4">
+                            <a asp-action="Summary" class="btn btn-primary btn-lg btn-block">Checkout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>

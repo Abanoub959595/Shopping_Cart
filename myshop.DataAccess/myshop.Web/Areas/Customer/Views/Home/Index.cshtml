@@ -1,0 +1,48 @@
+﻿@model IEnumerable<ProductViewModel>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <!-- Changed to row-cols-1 for mobile -->
+            @foreach (var product in Model)
+            {
+                <div class="col mb-5">
+                    <div class="card h-100 shadow-sm border-0">
+                        <!-- Product image-->
+                        <a asp-area="Customer" asp-controller="Home" asp-action="Details" asp-route-productId="@product.Id">
+                            <img class="card-img-top" src="~/Images/Product/@System.IO.Path.GetFileName(product.Img)" alt="@product.Name" class="img-fluid" />
+                        </a>
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">@product.Name</h5>
+                                <!-- Product price-->
+                                <p class="text-muted">@product.Price.ToString("C")</p> <!-- Format price as currency -->
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent text-center">
+                            <a asp-area="Customer" asp-controller="Home" asp-route-productId="@product.Id" asp-action="Details" class="btn btn-outline-primary mt-auto">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="d-flex justify-content-center mt-5">
+            @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }),
+            new PagedListRenderOptions {
+            UlElementClasses = new[] { "pagination" },
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" },
+            MaximumPageNumbersToDisplay = 5,
+            NextElementClass = "page-item",
+            PreviousElementClass = "page-item",
+
+            })
+        </div>
+    </div>
+</section>

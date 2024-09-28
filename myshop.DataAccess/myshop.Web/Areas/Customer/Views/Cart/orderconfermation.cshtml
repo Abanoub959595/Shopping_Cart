@@ -1,0 +1,19 @@
+﻿@model int
+
+<div class="container mt-5">
+    <div class="row justify-content-center text-center">
+        <div class="col-md-8">
+            <!-- Success Icon and Title -->
+            <img src="~/img/confirmed.jpg" class="img-fluid mb-4" alt="Order Confirmation" style="max-width: 150px;">
+            <h1 class="display-4">Order Confirmed!</h1>
+            <hr class="my-4">
+
+            <!-- Order Number and Confirmation Text -->
+            <h2 class="mb-3">Your Order Number <strong>@Model</strong> has been successfully placed.</h2>
+            <p class="lead">Thank you for shopping with us! You will receive an email confirmation shortly with the order details.</p>
+
+            <!-- Call to Action (Optional) -->
+            <a href="~/Customer/Home/Index" class="btn btn-primary btn-lg mt-4">Continue Shopping</a>
+        </div>
+    </div>
+</div>
